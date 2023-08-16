@@ -1,6 +1,7 @@
 package com.liderit.liderit.service;
 
 import com.liderit.liderit.entity.DTO.ShowcaseDTO;
+import com.liderit.liderit.entity.Showcase;
 import com.liderit.liderit.repository.ShowcaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,15 +48,14 @@ public class ShowcaseService {
         return showcaseRepository.findByLastUpdateDateBetween(start, end).stream().map(ShowcaseDTO::new).collect(Collectors.toList());
     }
 
+    public void deleteShowcase(Integer id){
+        showcaseRepository.deleteById(id);
+    }
 
-//    public List<ProductDTO> getProductByShowcaseId(int id) {
-//        return showcaseRepository.findById(id)
-//                .map(Showcase::getProduct)
-//                .map(products -> products.stream()
-//                        .map(ProductDTO::new)
-//                        .collect(Collectors.toList())
-//                ).orElse(Collections.emptyList());
-//    }
+    public void saveShowcase(Showcase showcase){
+        showcaseRepository.save(showcase);
+    }
+
 
 
 }

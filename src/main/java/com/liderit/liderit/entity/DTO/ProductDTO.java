@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class ProductDTO {
     public ProductDTO(Product product) {
         this.id = product.getId();
-        this.position_on_showcase = product.getPosition_on_showcase();
+        this.positionOnShowcase = product.getPosition_on_showcase();
         this.name = product.getName();
         this.type = product.getType();
         this.price = product.getPrice();
@@ -20,7 +20,7 @@ public class ProductDTO {
 
     private Long id;
 
-    private String position_on_showcase;
+    private String positionOnShowcase;
 
     private String name;
 
@@ -40,12 +40,12 @@ public class ProductDTO {
         this.id = id;
     }
 
-    public String getPosition_on_showcase() {
-        return position_on_showcase;
+    public String getPositionOnShowcase() {
+        return positionOnShowcase;
     }
 
-    public void setPosition_on_showcase(String position_on_showcase) {
-        this.position_on_showcase = position_on_showcase;
+    public void setPositionOnShowcase(String positionOnShowcase) {
+        this.positionOnShowcase = positionOnShowcase;
     }
 
     public String getName() {

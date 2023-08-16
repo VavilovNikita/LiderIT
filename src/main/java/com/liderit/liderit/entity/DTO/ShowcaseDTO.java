@@ -10,8 +10,8 @@ public class ShowcaseDTO {
         this.name = showcase.getName();
         this.address = showcase.getAddress();
         this.type = showcase.getType();
-        this.created_at = showcase.getCreatedAt();
-        this.last_update_date = showcase.getLastUpdateDate();
+        this.createdAt = showcase.getCreatedAt();
+        this.lastUpdateDate = showcase.getLastUpdateDate();
     }
 
     public ShowcaseDTO() {
@@ -25,9 +25,9 @@ public class ShowcaseDTO {
 
     private String type;
 
-    private LocalDate created_at;
+    private LocalDate createdAt;
 
-    private LocalDate last_update_date;
+    private LocalDate lastUpdateDate;
 
     public int getId() {
         return id;
@@ -53,20 +53,20 @@ public class ShowcaseDTO {
         this.type = type;
     }
 
-    public LocalDate getCreated_at() {
-        return created_at;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(LocalDate created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public LocalDate getLast_update_date() {
-        return last_update_date;
+    public LocalDate getLastUpdateDate() {
+        return lastUpdateDate;
     }
 
-    public void setLast_update_date(LocalDate last_update_date) {
-        this.last_update_date = last_update_date;
+    public void setLastUpdateDate(LocalDate lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 
     public String getAddress() {

@@ -1,6 +1,8 @@
 package com.liderit.liderit.controller;
 
 import com.liderit.liderit.entity.DTO.ShowcaseDTO;
+import com.liderit.liderit.entity.Showcase;
+import com.liderit.liderit.repository.ShowcaseRepository;
 import com.liderit.liderit.service.ShowcaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +15,13 @@ import java.util.List;
 @RequestMapping("/liderIt")
 public class ShowcaseController {
     private final ShowcaseService showcaseService;
+    private final ShowcaseRepository showcaseRepository;
 
 
     @Autowired
-    public ShowcaseController(ShowcaseService showcaseService) {
+    public ShowcaseController(ShowcaseService showcaseService, ShowcaseRepository showcaseRepository) {
         this.showcaseService = showcaseService;
+        this.showcaseRepository = showcaseRepository;
     }
 
 
@@ -61,12 +65,37 @@ public class ShowcaseController {
         return showcaseService.findByLastUpdateDateBetween(startDate, endDate);
     }
 
+    //- Удаление витрины
+    @DeleteMapping("/showcase/{id}")
+    public void deleteShowcase(@PathVariable Integer id) {
+        showcaseService.deleteShowcase(id);
+    }
 
-//- Добавить витрину
-//- Добавить товар на витрину
-//- Изменение данных витрины
-//- Изменение данных товара
-//- Удаление витрины
-//- Удаление товар
+    //- Добавить витрину
+    @PostMapping("/showcase")
+    public void createShowcase(@RequestParam(name = "name") String name,
+                               @RequestParam(name = "address") String address,
+                               @RequestParam(name = "type") String type,
+                               @RequestParam(name = "createdAt") LocalDate createdAt,
+                               @RequestParam(name = "lastUpdateDate") LocalDate lastUpdateDate) {
+        showcaseService.saveShowcase(new Showcase(name, address, type, createdAt, lastUpdateDate));
+    }
+
+    //- Изменение данных витрины
+    @PostMapping("/showcase/{id}")
+    public void updateShowcase(@PathVariable Integer id,
+                               @RequestParam(name = "name") String name,
+                               @RequestParam(name = "address") String address,
+                               @RequestParam(name = "type") String type,
+                               @RequestParam(name = "createdAt") LocalDate createdAt,
+                               @RequestParam(name = "lastUpdateDate") LocalDate lastUpdateDate) {
+        Showcase showcase = showcaseRepository.findById(id).orElse(null);
+        showcase.setName(name);
+        showcase.setAddress(address);
+        showcase.setType(type);
+        showcase.setCreatedAt(createdAt);
+        showcase.setLastUpdateDate(lastUpdateDate);
+        showcaseService.saveShowcase(showcase);
+    }
 }
 

@@ -37,6 +37,16 @@ public class Product {
     @Temporal(TemporalType.DATE)
     private LocalDate lastUpdateDate;
 
+    public Product(Showcase showcase, String position_on_showcase, String name, String type, String price, LocalDate createdAt, LocalDate lastUpdateDate) {
+        this.showcase = showcase;
+        this.position_on_showcase = position_on_showcase;
+        this.name = name;
+        this.type = type;
+        this.price = price;
+        this.createdAt = createdAt;
+        this.lastUpdateDate = lastUpdateDate;
+    }
+
     public Product(Long id, Showcase showcase, String position_on_showcase, String name, String type, String price, LocalDate created_at, LocalDate last_update_date) {
         this.id = id;
         this.showcase = showcase;

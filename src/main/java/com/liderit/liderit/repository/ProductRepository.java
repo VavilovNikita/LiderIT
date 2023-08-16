@@ -10,13 +10,14 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findByShowcaseId(Integer showcaseId);
+    List<Product> findByShowcaseIdAndId(Integer showcaseId, Integer productId);
 
-    List<Product> findByShowcaseIdAndType(Integer id, String type);
+    List<Product> findByShowcaseIdAndType(Integer showcaseId, String type);
 
-    List<Product> findAllByShowcaseIdAndPriceGreaterThanEqual(Integer id, String price);
+    List<Product> findAllByShowcaseIdAndPriceGreaterThanEqual(Integer showcaseId, String price);
 
-    List<Product> findAllByShowcaseIdAndPriceLessThanEqual(Integer id, String price);
+    List<Product> findAllByShowcaseIdAndPriceLessThanEqual(Integer showcaseId, String price);
 
-    List<Product> findAllByShowcaseIdAndPriceBetween(Integer id, String startPrice, String endPrice);
+    List<Product> findAllByShowcaseIdAndPriceBetween(Integer showcaseId, String startPrice, String endPrice);
 
 }

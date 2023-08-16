@@ -34,6 +34,14 @@ public class Showcase {
     public Showcase() {
     }
 
+    public Showcase(String name, String address, String type, LocalDate createdAt, LocalDate lastUpdateDate) {
+        this.name = name;
+        this.address = address;
+        this.type = type;
+        this.createdAt = createdAt;
+        this.lastUpdateDate = lastUpdateDate;
+    }
+
     public Showcase(int id, List<Product> product, String name, String address, String type, LocalDate created_at, LocalDate last_update_date) {
         this.id = id;
         this.product = product;
