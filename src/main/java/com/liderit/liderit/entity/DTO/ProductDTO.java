@@ -1,8 +1,8 @@
-package com.liberit.liberit.entity.DTO;
+package com.liderit.liderit.entity.DTO;
 
-import com.liberit.liberit.entity.Product;
+import com.liderit.liderit.entity.Product;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class ProductDTO {
     public ProductDTO(Product product) {
@@ -11,8 +11,11 @@ public class ProductDTO {
         this.name = product.getName();
         this.type = product.getType();
         this.price = product.getPrice();
-        this.created_at = product.getCreated_at();
-        this.last_update_date = product.getLast_update_date();
+        this.createdAt = product.getCreatedAt();
+        this.lastUpdateDate = product.getLastUpdateDate();
+    }
+
+    public ProductDTO() {
     }
 
     private Long id;
@@ -25,9 +28,9 @@ public class ProductDTO {
 
     private String price;
 
-    private Date created_at;
+    private LocalDate createdAt;
 
-    private Date last_update_date;
+    private LocalDate lastUpdateDate;
 
     public Long getId() {
         return id;
@@ -69,19 +72,19 @@ public class ProductDTO {
         this.price = price;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Date getLast_update_date() {
-        return last_update_date;
+    public LocalDate getLastUpdateDate() {
+        return lastUpdateDate;
     }
 
-    public void setLast_update_date(Date last_update_date) {
-        this.last_update_date = last_update_date;
+    public void setLastUpdateDate(LocalDate lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 }

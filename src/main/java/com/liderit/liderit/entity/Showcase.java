@@ -1,8 +1,8 @@
-package com.liberit.liberit.entity;
+package com.liderit.liderit.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -19,27 +19,29 @@ public class Showcase {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "address")
+    private String address;
+
     @Column(name = "type")
     private String type;
 
     @Column(name = "created_at")
-    @Temporal(TemporalType.DATE)
-    private Date created_at;
+    private LocalDate createdAt;
 
     @Column(name = "last_update_date")
-    @Temporal(TemporalType.DATE)
-    private Date last_update_date;
+    private LocalDate lastUpdateDate;
 
     public Showcase() {
     }
 
-    public Showcase(int id, List<Product> product, String name, String type, Date created_at, Date last_update_date) {
+    public Showcase(int id, List<Product> product, String name, String address, String type, LocalDate created_at, LocalDate last_update_date) {
         this.id = id;
         this.product = product;
         this.name = name;
+        this.address = address;
         this.type = type;
-        this.created_at = created_at;
-        this.last_update_date = last_update_date;
+        this.createdAt = created_at;
+        this.lastUpdateDate = last_update_date;
     }
 
 
@@ -67,20 +69,20 @@ public class Showcase {
         this.type = type;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDate created_at) {
+        this.createdAt = created_at;
     }
 
-    public Date getLast_update_date() {
-        return last_update_date;
+    public LocalDate getLastUpdateDate() {
+        return lastUpdateDate;
     }
 
-    public void setLast_update_date(Date last_update_date) {
-        this.last_update_date = last_update_date;
+    public void setLastUpdateDate(LocalDate last_update_date) {
+        this.lastUpdateDate = last_update_date;
     }
 
     public List<Product> getProduct() {
@@ -89,5 +91,13 @@ public class Showcase {
 
     public void setProduct(List<Product> product) {
         this.product = product;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
