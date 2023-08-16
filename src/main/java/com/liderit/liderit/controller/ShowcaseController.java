@@ -82,7 +82,7 @@ public class ShowcaseController {
     }
 
     //- Изменение данных витрины
-    @PostMapping("/showcase/{id}")
+    @PatchMapping("/showcase/{id}")
     public void updateShowcase(@PathVariable Integer id,
                                @RequestParam(name = "name") String name,
                                @RequestParam(name = "address") String address,

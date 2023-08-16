@@ -74,7 +74,7 @@ public class ProductController {
         productService.saveProduct(new Product(showcaseRepository.findById(id).orElse(null), positionOnShowcase, name, address, type, createdAt, lastUpdateDate));
     }
     //- Изменение данных товара
-    @PostMapping("/{showcaseId}/product/{productId}")
+    @PatchMapping("/{showcaseId}/product/{productId}")
     public void updateShowcase(@PathVariable Integer showcaseId,
                                @PathVariable Integer productId,
                              @RequestParam(name = "positionOnShowcase") String positionOnShowcase,
