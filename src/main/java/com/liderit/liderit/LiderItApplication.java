@@ -1,13 +1,13 @@
-package com.liberit.liberit;
+package com.liderit.liderit;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LiberItApplication {
+public class LiderItApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(LiberItApplication.class, args);
+        SpringApplication.run(LiderItApplication.class, args);
     }
 
 }
