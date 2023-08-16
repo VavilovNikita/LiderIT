@@ -1,27 +1,23 @@
-package com.liberit.liberit.entity;
+package com.liberit.liberit.entity.DTO;
+
+import com.liberit.liberit.entity.Showcase;
 
 import java.sql.Date;
 
-public class ProductDTO {
-    public ProductDTO(Product product) {
-        this.id = product.getId();
-        this.position_on_showcase = product.getPosition_on_showcase();
-        this.name = product.getName();
-        this.type = product.getType();
-        this.price = product.getPrice();
-        this.created_at = product.getCreated_at();
-        this.last_update_date = product.getLast_update_date();
+public class ShowcaseDTO {
+    public ShowcaseDTO(Showcase showcase) {
+        this.id = showcase.getId();
+        this.name = showcase.getName();
+        this.type = showcase.getType();
+        this.created_at = showcase.getCreated_at();
+        this.last_update_date = showcase.getLast_update_date();
     }
 
     private int id;
 
-    private String position_on_showcase;
-
     private String name;
 
     private String type;
-
-    private String price;
 
     private Date created_at;
 
@@ -33,14 +29,6 @@ public class ProductDTO {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getPosition_on_showcase() {
-        return position_on_showcase;
-    }
-
-    public void setPosition_on_showcase(String position_on_showcase) {
-        this.position_on_showcase = position_on_showcase;
     }
 
     public String getName() {
@@ -57,14 +45,6 @@ public class ProductDTO {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public Date getCreated_at() {

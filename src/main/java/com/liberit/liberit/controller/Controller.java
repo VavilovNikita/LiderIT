@@ -1,7 +1,7 @@
 package com.liberit.liberit.controller;
 
-import com.liberit.liberit.entity.ProductDTO;
-import com.liberit.liberit.entity.ShowcaseDTO;
+import com.liberit.liberit.entity.DTO.ProductDTO;
+import com.liberit.liberit.entity.DTO.ShowcaseDTO;
 import com.liberit.liberit.service.ProductService;
 import com.liberit.liberit.service.ShowcaseService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.liberit.liberit.service;
 
-import com.liberit.liberit.entity.ProductDTO;
-import com.liberit.liberit.entity.ShowcaseDTO;
+import com.liberit.liberit.entity.DTO.ProductDTO;
+import com.liberit.liberit.entity.DTO.ShowcaseDTO;
 import com.liberit.liberit.repository.ShowcaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

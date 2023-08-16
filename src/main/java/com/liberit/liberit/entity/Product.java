@@ -11,7 +11,7 @@ public class Product {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "showcase_id", referencedColumnName = "id")
@@ -37,7 +37,7 @@ public class Product {
     @Temporal(TemporalType.DATE)
     private Date last_update_date;
 
-    public Product(int id, Showcase showcase, String position_on_showcase, String name, String type, String price, Date created_at, Date last_update_date) {
+    public Product(Long id, Showcase showcase, String position_on_showcase, String name, String type, String price, Date created_at, Date last_update_date) {
         this.id = id;
         this.showcase = showcase;
         this.position_on_showcase = position_on_showcase;
@@ -51,11 +51,11 @@ public class Product {
     public Product() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
