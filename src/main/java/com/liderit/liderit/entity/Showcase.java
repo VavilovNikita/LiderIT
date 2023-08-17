@@ -6,12 +6,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = "showcase_sequence",initialValue = 5,sequenceName = "showcase_sequence")
+@SequenceGenerator(name = "showcase_sequence", initialValue = 5, sequenceName = "showcase_sequence")
 @Table(name = "showcase")
 public class Showcase {
     @Id
-    @GeneratedValue(generator = "showcase_id_sequence",strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "showcase_id_sequence", initialValue = 5,sequenceName = "showcase_id_sequence")
+    @GeneratedValue(generator = "showcase_id_sequence", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "showcase_id_sequence", initialValue = 5, sequenceName = "showcase_id_sequence")
     @Column(name = "id")
     private int id;
 

@@ -1,8 +1,6 @@
 package com.liderit.liderit.dto;
 
 import com.liderit.liderit.entity.Showcase;
-import com.liderit.liderit.repository.ShowcaseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 
