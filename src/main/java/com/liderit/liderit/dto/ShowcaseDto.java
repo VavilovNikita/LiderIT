@@ -1,11 +1,14 @@
-package com.liderit.liderit.entity.DTO;
+package com.liderit.liderit.dto;
 
 import com.liderit.liderit.entity.Showcase;
+import com.liderit.liderit.repository.ShowcaseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 
-public class ShowcaseDTO {
-    public ShowcaseDTO(Showcase showcase) {
+public class ShowcaseDto {
+
+    public ShowcaseDto(Showcase showcase) {
         this.id = showcase.getId();
         this.name = showcase.getName();
         this.address = showcase.getAddress();
@@ -14,7 +17,7 @@ public class ShowcaseDTO {
         this.lastUpdateDate = showcase.getLastUpdateDate();
     }
 
-    public ShowcaseDTO() {
+    public ShowcaseDto() {
     }
 
     private int id;

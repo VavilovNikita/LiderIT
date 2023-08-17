@@ -5,11 +5,13 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@SequenceGenerator(name = "product_sequence",initialValue = 13,sequenceName = "product_sequence")
 @Table(name = "product")
 public class Product {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "product_id_sequence",strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "product_id_sequence", initialValue = 13,sequenceName = "product_id_sequence")
     @Column(name = "id")
     private Long id;
 
@@ -27,7 +29,7 @@ public class Product {
     private String type;
 
     @Column(name = "price")
-    private String price;
+    private Double price;
 
     @Column(name = "created_at")
     @Temporal(TemporalType.DATE)
@@ -37,7 +39,7 @@ public class Product {
     @Temporal(TemporalType.DATE)
     private LocalDate lastUpdateDate;
 
-    public Product(Showcase showcase, String position_on_showcase, String name, String type, String price, LocalDate createdAt, LocalDate lastUpdateDate) {
+    public Product(Showcase showcase, String position_on_showcase, String name, String type, Double price, LocalDate createdAt, LocalDate lastUpdateDate) {
         this.showcase = showcase;
         this.position_on_showcase = position_on_showcase;
         this.name = name;
@@ -45,17 +47,6 @@ public class Product {
         this.price = price;
         this.createdAt = createdAt;
         this.lastUpdateDate = lastUpdateDate;
-    }
-
-    public Product(Long id, Showcase showcase, String position_on_showcase, String name, String type, String price, LocalDate created_at, LocalDate last_update_date) {
-        this.id = id;
-        this.showcase = showcase;
-        this.position_on_showcase = position_on_showcase;
-        this.name = name;
-        this.type = type;
-        this.price = price;
-        this.createdAt = created_at;
-        this.lastUpdateDate = last_update_date;
     }
 
     public Product() {
@@ -101,11 +92,11 @@ public class Product {
         this.type = type;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -123,19 +114,5 @@ public class Product {
 
     public void setLastUpdateDate(LocalDate last_update_date) {
         this.lastUpdateDate = last_update_date;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", showcase=" + showcase.getName() +
-                ", position_on_showcase='" + position_on_showcase + '\'' +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", price='" + price + '\'' +
-                ", created_at=" + createdAt +
-                ", last_update_date=" + lastUpdateDate +
-                '}';
     }
 }

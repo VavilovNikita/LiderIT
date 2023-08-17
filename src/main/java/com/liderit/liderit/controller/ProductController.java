@@ -1,96 +1,71 @@
 package com.liderit.liderit.controller;
 
-import com.liderit.liderit.entity.DTO.ProductDTO;
-import com.liderit.liderit.entity.Product;
-import com.liderit.liderit.repository.ProductRepository;
-import com.liderit.liderit.repository.ShowcaseRepository;
+import com.liderit.liderit.dto.ProductDto;
 import com.liderit.liderit.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/liderIt/showcase")
 public class ProductController {
 
     private final ProductService productService;
-    private final ShowcaseRepository showcaseRepository;
-    private final ProductRepository productRepository;
 
     @Autowired
-    public ProductController(ProductService productService, ShowcaseRepository showcaseRepository, ProductRepository productRepository) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.showcaseRepository = showcaseRepository;
-        this.productRepository = productRepository;
     }
 
-
-    //- Получить все товары витрины
-    //-- должна быть возможность фильтрации по типу товара
     @GetMapping("/{id}/product")
-    public List<ProductDTO> getAllProductsByShowcase(@PathVariable("id") int id,
-                                                     @RequestParam(name = "type", required = false) String type) {
-        return type != null ?
-                productService.findByType(id, type)
-                :
-                productService.findByShowcaseId(id);
+    public List<ProductDto> getAllProductsByShowcase(@PathVariable("id") int id,
+                                                     @RequestParam(name = "position_on_showcase", required = false) String position_on_showcase,
+                                                     @RequestParam(name = "name", required = false) String name,
+                                                     @RequestParam(name = "type", required = false) String type,
+                                                     @RequestParam(name = "startPrice", required = false) Double startPrice,
+                                                     @RequestParam(name = "endPrice", required = false) Double endPrice,
+                                                     @RequestParam(name = "startCreatedAt", required = false) LocalDate startCreatedAt,
+                                                     @RequestParam(name = "endCreatedAt", required = false) LocalDate endCreatedAt,
+                                                     @RequestParam(name = "startLastUpdateDate", required = false) LocalDate startLastUpdateDate,
+                                                     @RequestParam(name = "endLastUpdateDate", required = false) LocalDate endLastUpdateDate) {
+        return productService.findByShowcaseId(id)
+                .stream()
+                .filter(position_on_showcase != null ? productDTO -> productDTO.getPositionOnShowcase().equalsIgnoreCase(position_on_showcase) : showcaseDTO -> true)
+                .filter(name != null ? productDTO -> productDTO.getName().equalsIgnoreCase(name) : showcaseDTO -> true)
+                .filter(type != null ? productDTO -> productDTO.getName().equalsIgnoreCase(type) : showcaseDTO -> true)
+                .filter(startPrice != null ? productDTO -> productDTO.getPrice() >= startPrice : showcaseDTO -> true)
+                .filter(endPrice != null ? productDTO -> productDTO.getPrice() <= endPrice : showcaseDTO -> true)
+                .filter(startCreatedAt != null ? productDTO -> productDTO.getCreatedAt().isAfter(startCreatedAt) : showcaseDTO -> true)
+                .filter(endCreatedAt != null ? productDTO -> productDTO.getCreatedAt().isBefore(endCreatedAt) : showcaseDTO -> true)
+                .filter(startLastUpdateDate != null ? productDTO -> productDTO.getCreatedAt().isAfter(startLastUpdateDate) : showcaseDTO -> true)
+                .filter(endLastUpdateDate != null ? productDTO -> productDTO.getCreatedAt().isBefore(endLastUpdateDate) : showcaseDTO -> true)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{showcaseId}/product/{productId}")
-    public List<ProductDTO> getProductById(@PathVariable("showcaseId") Integer showcaseId, @PathVariable("productId") Integer productId) {
+    public ProductDto getProductById(@PathVariable("showcaseId") Long showcaseId,
+                                     @PathVariable("productId") Long productId) {
         return productService.findByProductId(showcaseId, productId);
     }
 
-    //-- должна быть возможность фильтрации по диапозону цен
-    @GetMapping("/{id}/product/price")
-    public List<ProductDTO> getByPrice(@PathVariable("id") int id,
-                                       @RequestParam(name = "startPrice", required = false) String startPrice,
-                                       @RequestParam(name = "endPrice", required = false) String endPrice) {
-        if (startPrice != null && endPrice != null) {
-            return productService.findAllByPriceBetween(id, startPrice, endPrice);
-        }
-        return startPrice != null ?
-                productService.findAllByPriceGreater(id, startPrice) :
-                productService.findAllByPriceLess(id, endPrice);
-    }
-
-    //- Удаление товар
     @DeleteMapping("/{showcaseId}/product/{productId}")
-    public void deleteShowcase(@PathVariable Integer productId, @PathVariable String showcaseId) {
+    public void deleteShowcase(@PathVariable Integer productId) {
         productService.deleteProduct(productId);
     }
 
-    //- Добавить товар на витрину
     @PostMapping("/{id}/product")
-    public void saveShowcase(@PathVariable Integer id,
-                             @RequestParam(name = "positionOnShowcase") String positionOnShowcase,
-                             @RequestParam(name = "name") String name,
-                             @RequestParam(name = "type") String address,
-                             @RequestParam(name = "price") String type,
-                             @RequestParam(name = "createdAt") LocalDate createdAt,
-                             @RequestParam(name = "lastUpdateDate") LocalDate lastUpdateDate) {
-        productService.saveProduct(new Product(showcaseRepository.findById(id).orElse(null), positionOnShowcase, name, address, type, createdAt, lastUpdateDate));
+    public void saveShowcase(@PathVariable Integer id, @RequestBody ProductDto productDTO) {
+        productService.createProduct(id, productDTO);
     }
-    //- Изменение данных товара
+
     @PatchMapping("/{showcaseId}/product/{productId}")
-    public void updateShowcase(@PathVariable Integer showcaseId,
-                               @PathVariable Integer productId,
-                             @RequestParam(name = "positionOnShowcase") String positionOnShowcase,
-                             @RequestParam(name = "name") String name,
-                             @RequestParam(name = "type") String address,
-                             @RequestParam(name = "price") String type,
-                             @RequestParam(name = "createdAt") LocalDate createdAt,
-                             @RequestParam(name = "lastUpdateDate") LocalDate lastUpdateDate) {
-        Product product = productRepository.findByShowcaseIdAndId(showcaseId, productId).stream().findAny().orElse(null);
-        product.setPosition_on_showcase(positionOnShowcase);
-        product.setName(name);
-        product.setType(address);
-        product.setPrice(type);
-        product.setCreatedAt(createdAt);
-        product.setLastUpdateDate(lastUpdateDate);
-        productService.saveProduct(product);
+    public void updateShowcase(@PathVariable Long showcaseId,
+                               @PathVariable Long productId,
+                               @RequestBody ProductDto productDTO) {
+        productService.updateProduct(showcaseId, productId, productDTO);
     }
 }
 

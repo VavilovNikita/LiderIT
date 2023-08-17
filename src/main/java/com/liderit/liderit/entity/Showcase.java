@@ -6,10 +6,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@SequenceGenerator(name = "showcase_sequence",initialValue = 5,sequenceName = "showcase_sequence")
 @Table(name = "showcase")
 public class Showcase {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "showcase_id_sequence",strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "showcase_id_sequence", initialValue = 5,sequenceName = "showcase_id_sequence")
     @Column(name = "id")
     private int id;
 
@@ -34,24 +36,14 @@ public class Showcase {
     public Showcase() {
     }
 
-    public Showcase(String name, String address, String type, LocalDate createdAt, LocalDate lastUpdateDate) {
+    public Showcase(List<Product> product, String name, String address, String type, LocalDate createdAt, LocalDate lastUpdateDate) {
+        this.product = product;
         this.name = name;
         this.address = address;
         this.type = type;
         this.createdAt = createdAt;
         this.lastUpdateDate = lastUpdateDate;
     }
-
-    public Showcase(int id, List<Product> product, String name, String address, String type, LocalDate created_at, LocalDate last_update_date) {
-        this.id = id;
-        this.product = product;
-        this.name = name;
-        this.address = address;
-        this.type = type;
-        this.createdAt = created_at;
-        this.lastUpdateDate = last_update_date;
-    }
-
 
     public int getId() {
         return id;

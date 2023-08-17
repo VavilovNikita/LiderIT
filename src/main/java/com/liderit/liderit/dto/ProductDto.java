@@ -1,11 +1,11 @@
-package com.liderit.liderit.entity.DTO;
+package com.liderit.liderit.dto;
 
 import com.liderit.liderit.entity.Product;
 
 import java.time.LocalDate;
 
-public class ProductDTO {
-    public ProductDTO(Product product) {
+public class ProductDto {
+    public ProductDto(Product product) {
         this.id = product.getId();
         this.positionOnShowcase = product.getPosition_on_showcase();
         this.name = product.getName();
@@ -15,7 +15,7 @@ public class ProductDTO {
         this.lastUpdateDate = product.getLastUpdateDate();
     }
 
-    public ProductDTO() {
+    public ProductDto() {
     }
 
     private Long id;
@@ -26,7 +26,7 @@ public class ProductDTO {
 
     private String type;
 
-    private String price;
+    private Double price;
 
     private LocalDate createdAt;
 
@@ -64,11 +64,11 @@ public class ProductDTO {
         this.type = type;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

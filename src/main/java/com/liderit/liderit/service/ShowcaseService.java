@@ -1,16 +1,16 @@
 package com.liderit.liderit.service;
 
-import com.liderit.liderit.entity.DTO.ShowcaseDTO;
+import com.liderit.liderit.dto.ShowcaseDto;
 import com.liderit.liderit.entity.Showcase;
 import com.liderit.liderit.repository.ShowcaseRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class ShowcaseService {
@@ -21,41 +21,43 @@ public class ShowcaseService {
         this.showcaseRepository = showcaseRepository;
     }
 
-    public ShowcaseDTO findById(Integer id) {
-        return new ShowcaseDTO(Objects.requireNonNull(showcaseRepository.findById(id).stream().findAny().orElse(null)));
+    public ShowcaseDto findById(Integer id) {
+        Optional<Showcase> showcase = showcaseRepository.findById(id);
+        if (showcase.isPresent()) {
+            return new ShowcaseDto(showcase.get());
+        }
+        throw new EntityNotFoundException("Витрины с id:" + id + " не существует");
     }
 
-    public List<ShowcaseDTO> getAllShowcase() {
-        List<ShowcaseDTO> result = new ArrayList<>();
-        showcaseRepository.findAll().forEach(showcase -> result.add(new ShowcaseDTO(showcase)));
+    public List<ShowcaseDto> getAllShowcase() {
+        List<ShowcaseDto> result = new ArrayList<>();
+        showcaseRepository.findAll().forEach(showcase -> result.add(new ShowcaseDto(showcase)));
+        if (result.isEmpty())
+            throw new EntityNotFoundException("Витрин не найдено");
         return result;
     }
 
-    public List<ShowcaseDTO> findByType(String type) {
-        return showcaseRepository.findByTypeIgnoreCase(type).stream().map(ShowcaseDTO::new).collect(Collectors.toList());
-    }
-
-
-    public List<ShowcaseDTO> findByAddress(String address) {
-        return showcaseRepository.findByAddressIgnoreCase(address).stream().map(ShowcaseDTO::new).collect(Collectors.toList());
-    }
-
-    public List<ShowcaseDTO> findByCreatedAtBetween(LocalDate start, LocalDate end) {
-        return showcaseRepository.findByCreatedAtBetween(start, end).stream().map(ShowcaseDTO::new).collect(Collectors.toList());
-    }
-
-    public List<ShowcaseDTO> findByLastUpdateDateBetween(LocalDate start, LocalDate end) {
-        return showcaseRepository.findByLastUpdateDateBetween(start, end).stream().map(ShowcaseDTO::new).collect(Collectors.toList());
-    }
-
-    public void deleteShowcase(Integer id){
+    public void deleteShowcase(Integer id) {
         showcaseRepository.deleteById(id);
     }
 
-    public void saveShowcase(Showcase showcase){
+    public void saveShowcase(Showcase showcase) {
+        showcase.setCreatedAt(LocalDate.now());
+        showcase.setLastUpdateDate(LocalDate.now());
         showcaseRepository.save(showcase);
     }
 
+    public void updateShowcase(Integer id, ShowcaseDto showcaseDTO) {
+        Optional<Showcase> optShowcase = showcaseRepository.findById(id);
+        if (optShowcase.isEmpty())
+            throw new EntityNotFoundException("Витрины с id:" + id + " не существует");
+        Showcase showcase = optShowcase.get();
+        showcase.setName(showcaseDTO.getName());
+        showcase.setAddress(showcaseDTO.getAddress());
+        showcase.setType(showcaseDTO.getType());
+        showcase.setLastUpdateDate(LocalDate.now());
+        showcaseRepository.save(showcase);
+    }
 
 
 }

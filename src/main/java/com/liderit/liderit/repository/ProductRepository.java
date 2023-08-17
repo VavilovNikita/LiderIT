@@ -5,19 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findByShowcaseId(Integer showcaseId);
-    List<Product> findByShowcaseIdAndId(Integer showcaseId, Integer productId);
+    Optional<Product> findByShowcaseIdAndId(Long showcase_id, Long id);
 
-    List<Product> findByShowcaseIdAndType(Integer showcaseId, String type);
-
-    List<Product> findAllByShowcaseIdAndPriceGreaterThanEqual(Integer showcaseId, String price);
-
-    List<Product> findAllByShowcaseIdAndPriceLessThanEqual(Integer showcaseId, String price);
-
-    List<Product> findAllByShowcaseIdAndPriceBetween(Integer showcaseId, String startPrice, String endPrice);
 
 }
