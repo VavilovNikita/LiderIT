@@ -5,13 +5,12 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@SequenceGenerator(name = "product_sequence", initialValue = 13, sequenceName = "product_sequence")
 @Table(name = "product")
 public class Product {
 
     @Id
     @GeneratedValue(generator = "product_id_sequence", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "product_id_sequence", initialValue = 13, sequenceName = "product_id_sequence")
+    @SequenceGenerator(name = "product_id_sequence", initialValue = 13)
     @Column(name = "id")
     private Long id;
 
