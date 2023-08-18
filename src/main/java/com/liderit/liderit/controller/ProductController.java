@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/liderIt/showcase")
+@RequestMapping("/liderIt/showcase/{showcaseId}/product")
 public class ProductController {
 
     private final ProductService productService;
@@ -20,8 +20,8 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/{id}/product")
-    public List<ProductDto> getAllProductsByShowcase(@PathVariable("id") int id,
+    @GetMapping()
+    public List<ProductDto> getAllProductsByShowcase(@PathVariable("showcaseId") int id,
                                                      @RequestParam(name = "position_on_showcase", required = false) String position_on_showcase,
                                                      @RequestParam(name = "name", required = false) String name,
                                                      @RequestParam(name = "type", required = false) String type,
@@ -45,27 +45,27 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/{showcaseId}/product/{productId}")
+    @GetMapping("/{id}")
     public ProductDto getProductById(@PathVariable("showcaseId") Long showcaseId,
-                                     @PathVariable("productId") Long productId) {
+                                     @PathVariable("id") Long productId) {
         return productService.findByProductId(showcaseId, productId);
     }
 
-    @DeleteMapping("/{showcaseId}/product/{productId}")
-    public void deleteShowcase(@PathVariable Integer productId) {
-        productService.deleteProduct(productId);
+    @DeleteMapping("/{id}")
+    public void deleteShowcase(@PathVariable Integer id) {
+        productService.deleteProduct(id);
     }
 
-    @PostMapping("/{id}/product")
-    public void saveShowcase(@PathVariable Integer id, @RequestBody ProductDto productDTO) {
-        productService.createProduct(id, productDTO);
+    @PostMapping()
+    public void saveShowcase(@PathVariable Integer showcaseId, @RequestBody ProductDto productDTO) {
+        productService.createProduct(showcaseId, productDTO);
     }
 
-    @PatchMapping("/{showcaseId}/product/{productId}")
+    @PatchMapping("/{id}")
     public void updateShowcase(@PathVariable Long showcaseId,
-                               @PathVariable Long productId,
+                               @PathVariable Long id,
                                @RequestBody ProductDto productDTO) {
-        productService.updateProduct(showcaseId, productId, productDTO);
+        productService.updateProduct(showcaseId, id, productDTO);
     }
 }
 

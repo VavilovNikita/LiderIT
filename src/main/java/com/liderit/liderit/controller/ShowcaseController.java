@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/liderIt")
+@RequestMapping("/liderIt/showcase")
 public class ShowcaseController {
     private final ShowcaseService showcaseService;
 
@@ -22,7 +22,7 @@ public class ShowcaseController {
         this.showcaseService = showcaseService;
     }
 
-    @GetMapping("/showcase")
+    @GetMapping()
     public List<ShowcaseDto> getShowcases(@RequestParam(name = "type", required = false) String type,
                                           @RequestParam(name = "address", required = false) String address,
                                           @RequestParam(name = "createdAtStartDate", required = false) LocalDate createdAtStartDate,
@@ -40,17 +40,17 @@ public class ShowcaseController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/showcase/{id}")
+    @GetMapping("/{id}")
     public ShowcaseDto getShowcases(@PathVariable Integer id) {
         return showcaseService.findById(id);
     }
 
-    @DeleteMapping("/showcase/{id}")
+    @DeleteMapping("/{id}")
     public void deleteShowcase(@PathVariable Integer id) {
         showcaseService.deleteShowcase(id);
     }
 
-    @PostMapping("/showcase")
+    @PostMapping()
     public void createShowcase(@RequestBody ShowcaseDto showcaseDTO) {
         showcaseService.saveShowcase(new Showcase(new ArrayList<>(),
                 showcaseDTO.getName(),
@@ -60,7 +60,7 @@ public class ShowcaseController {
                 LocalDate.now()));
     }
 
-    @PatchMapping("/showcase/{id}")
+    @PatchMapping("/{id}")
     public void updateShowcase(@PathVariable Integer id,
                                @RequestBody ShowcaseDto showcaseDTO) {
         showcaseService.updateShowcase(id, showcaseDTO);
