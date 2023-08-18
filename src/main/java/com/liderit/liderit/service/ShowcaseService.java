@@ -42,8 +42,6 @@ public class ShowcaseService {
     }
 
     public void saveShowcase(Showcase showcase) {
-        showcase.setCreatedAt(LocalDate.now());
-        showcase.setLastUpdateDate(LocalDate.now());
         showcaseRepository.save(showcase);
     }
 

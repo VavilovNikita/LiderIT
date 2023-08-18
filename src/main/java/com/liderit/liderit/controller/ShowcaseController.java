@@ -23,14 +23,16 @@ public class ShowcaseController {
     }
 
     @GetMapping()
-    public List<ShowcaseDto> getShowcases(@RequestParam(name = "type", required = false) String type,
+    public List<ShowcaseDto> getShowcases(@RequestParam(name = "name", required = false) String name,
+                                          @RequestParam(name = "type", required = false) String type,
                                           @RequestParam(name = "address", required = false) String address,
-                                          @RequestParam(name = "createdAtStartDate", required = false) LocalDate createdAtStartDate,
-                                          @RequestParam(name = "createdAtEndDate", required = false) LocalDate createdAtEndDate,
-                                          @RequestParam(name = "lastUpdateDateStartDate", required = false) LocalDate lastUpdateDateStartDate,
-                                          @RequestParam(name = "lastUpdateDateEndDate", required = false) LocalDate lastUpdateDateEndDate) {
+                                          @RequestParam(name = "startCreatedAt", required = false) LocalDate createdAtStartDate,
+                                          @RequestParam(name = "endCreatedAt", required = false) LocalDate createdAtEndDate,
+                                          @RequestParam(name = "startLastUpdateDate", required = false) LocalDate lastUpdateDateStartDate,
+                                          @RequestParam(name = "endLastUpdateDate", required = false) LocalDate lastUpdateDateEndDate) {
         return showcaseService.getAllShowcase()
                 .stream()
+                .filter(name != null ? showcaseDTO -> showcaseDTO.getType().equalsIgnoreCase(name) : showcaseDTO -> true)
                 .filter(type != null ? showcaseDTO -> showcaseDTO.getType().equalsIgnoreCase(type) : showcaseDTO -> true)
                 .filter(address != null ? showcaseDTO -> showcaseDTO.getAddress().equalsIgnoreCase(address) : showcaseDTO -> true)
                 .filter(createdAtStartDate != null ? showcaseDTO -> showcaseDTO.getCreatedAt().isAfter(createdAtStartDate) : showcaseDTO -> true)
