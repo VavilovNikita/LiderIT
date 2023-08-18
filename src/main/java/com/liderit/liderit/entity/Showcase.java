@@ -12,7 +12,7 @@ public class Showcase {
     @GeneratedValue(generator = "showcase_id_sequence", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "showcase_id_sequence", initialValue = 5)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @OneToMany(mappedBy = "showcase", fetch = FetchType.LAZY)
     private List<Product> product;
@@ -44,11 +44,11 @@ public class Showcase {
         this.lastUpdateDate = lastUpdateDate;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

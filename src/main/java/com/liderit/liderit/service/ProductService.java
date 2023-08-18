@@ -24,7 +24,7 @@ public class ProductService {
         this.showcaseRepository = showcaseRepository;
     }
 
-    public List<ProductDto> findByShowcaseId(Integer id) {
+    public List<ProductDto> findByShowcaseId(Long id) {
         List<ProductDto> productDtoList = productRepository.findByShowcaseId(id).stream().map(ProductDto::new).toList();
         if (productDtoList.isEmpty())
             throw new EntityNotFoundException("Витрина с id:" + id + " пуста");

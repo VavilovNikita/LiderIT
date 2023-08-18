@@ -21,7 +21,7 @@ public class ProductController {
     }
 
     @GetMapping()
-    public List<ProductDto> getAllProductsByShowcase(@PathVariable("showcaseId") int id,
+    public List<ProductDto> getAllProductsByShowcase(@PathVariable("showcaseId") Long id,
                                                      @RequestParam(name = "position_on_showcase", required = false) String position_on_showcase,
                                                      @RequestParam(name = "name", required = false) String name,
                                                      @RequestParam(name = "type", required = false) String type,

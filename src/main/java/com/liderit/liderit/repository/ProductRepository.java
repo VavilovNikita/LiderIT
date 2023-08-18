@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    List<Product> findByShowcaseId(Integer showcaseId);
+    List<Product> findByShowcaseId(Long showcaseId);
     Optional<Product> findByShowcaseIdAndId(Long showcase_id, Long id);
 
 
