@@ -12,7 +12,6 @@
     git clone https://github.com/VavilovNikita/LiderIT.git
     
 
-   Замените `username` на имя пользователя GitHub и `repository` на название репозитория, в котором находится проект.
 
 4. Перейдите в директорию проекта, используя команду `cd`.
 
